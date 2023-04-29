@@ -1,0 +1,17 @@
+words = [
+"drive",
+"cheese",
+"school",
+"laptop",
+"laugh",
+"garden",
+"shoelace",
+"water",
+"trees",
+"manager",
+"happy",
+"hickups",
+"light",
+"sunshine",
+"travel",
+]
