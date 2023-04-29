@@ -2,11 +2,15 @@
 import random
 from words import words
 
-def get_word(words):
+def select_word(words):
     return random.choice(words)
 
-print(word)
+print(select_word(words))
 
-print_title()
-while True:
-    name = input("Please enter your name:\n")
+remaining_attempts = 6
+guessed letters = ""
+
+#needed for heroku set up
+#print_title()
+#while True:
+ #   name = input("Please enter your name:\n")
