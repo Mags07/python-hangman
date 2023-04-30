@@ -18,9 +18,7 @@ def introduction():
     while not name.isalpha():
         name = input("What is your name? (Use letters only) -\n")
         if name.isalpha():
-            print("Welcome {}! Press P or p to start the game".format(name))
-
-    print("Press P or p to start the game")
+            print("Welcome {}! Start the game!".format(name))
 
 
 # Computer randomly selects the hangman word.
@@ -31,7 +29,7 @@ def select_word(words):
 # The chosen word shows up as dashes while they have not been guessed.
 def print_hangman_word(hangman_word, guessed_letters):
     for letter in hangman_word:
-        if letter in guessed_letters:
+        if letter.lower() in guessed_letters.lower():
             print("{}".format(letter), end="")
         else:
             print(" _ ", end="")
@@ -43,7 +41,7 @@ def letter_input_correct(choice, hangman_word):
     if len(choice) > 1 or not choice.isalpha():
         print("You can only pick a single letter. Try again - \n")
     else:
-        if choice in hangman_word:
+        if choice.lower() in hangman_word.lower():
             return True
         else:
             return False
@@ -55,13 +53,15 @@ def characters(word):
 # Keeping track of guest's remaining guesses & which letters they have used up
 
 
-chances_left = 6
 guessed_letters = ""
 hangman_word = select_word(words)
+chances_left = 6
 introduction()
 
 while chances_left > 0 and len(guessed_letters) < len(characters(hangman_word)):
     choice = input("Pick a letter - \n")
+    if choice.lower() not in guessed_letters.lower():
+        guessed_letters += choice
     input_in_hangman_word = letter_input_correct(choice, hangman_word)
     if input_in_hangman_word:
         if choice in guessed_letters:
@@ -77,7 +77,14 @@ while chances_left > 0 and len(guessed_letters) < len(characters(hangman_word)):
     print_hangman_word(hangman_word, guessed_letters)
     print("\n\nNumber of letters guessed correctly-{}\n".format(len(guessed_letters)))
 
-if len(guessed_letters) == len(characters(hangman_word)):
+
+guessed_word = ""
+for letter in hangman_word:
+    if letter.lower() in guessed_letters.lower():
+        guessed_word += letter
+
+
+if guessed_word.lower() == hangman_word.lower():
     print("Congratulations, you guessed the word right! You may live!\n")
 else:
     print("Sorry, you lost!\n")
