@@ -21,10 +21,10 @@ print("If you guess all the letters before your 6 chances are use, you win!")
 print("If you use up all your chances, you are hanged!")
 print("Good luck!")
 
-print("Press P to Play the game")
+print("Press P to Play the game - \n")
 if input == "P" or "p":
     start: True
-     random.choice(words)
+    return random.choice(words)
 else:
     ("Please press 'P' or 'p' to continue to the game")
 
@@ -46,9 +46,9 @@ def print_hangman_word(hangman_word):
 Check if guessed letter is in the work and to not allow user to guess anything except a single letter.
 '''
 def letter_input_correct(input, hangman_word):
-    input = letter("Pick a letter - ")
+    input = letter("Pick a letter - \n")
     if len(input) > 1 or not guess.isalpha():
-        print("You can only pick a single letter. Try again - ")
+        print("You can only pick a single letter. Try again - \n")
         sys.exit()
     else:
         if input in hangman_word:
