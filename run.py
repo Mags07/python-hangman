@@ -17,7 +17,7 @@ def introduction():
     print("Good luck!")
     name = ""
     while not name.isalpha():
-        name = input("What is your name? (Use letters only) -\n")
+        name = input("What is your name? (Use letters only): \n")
         if name.isalpha():
             print("Welcome {}! Start the game!".format(name))
 
@@ -39,11 +39,11 @@ def print_hangman_word(hangman_word, guessed_letters):
 
 # Check if guessed letter is in word & block double letters, numbers or signs
 def letter_input_correct(choice, hangman_word):
-    choice = input("Pick a letter - \n")
     if len(choice) > 1 or not choice.isalpha():
-        print("You can only pick a single letter. Try again - \n")
+        print("You can only pick a single letter. Try again: \n")
+        sys.exit()
     else:
-        if choice.upper() in hangman_word.upper():
+        if choice.lower() in hangman_word.lower():
             return True
         else:
             return False
@@ -61,13 +61,13 @@ chances_left = 6
 introduction()
 
 while chances_left > 0 and len(guessed_letters) < len(characters(hangman_word)):
-    if choice.upper() not in guessed_letters.upper():
+    choice = input("Pick a letter: \n")
+    if choice.lower() not in guessed_letters.lower():
         guessed_letters += choice
     input_in_hangman_word = letter_input_correct(choice, hangman_word)
     if input_in_hangman_word:
         if choice in guessed_letters:
             print("You already guessed this letter. Pick another")
-            print("Guessed letters so far: "(guessed_letters))
         else:
             print("You were right! That letter is part of the word.")
     else:
@@ -75,9 +75,9 @@ while chances_left > 0 and len(guessed_letters) < len(characters(hangman_word)):
         chances_left -= 1
 
     print(hangman_picture.get_hangman_picture(chances_left))
-    print("\n{} attempts_left\n".format(chances_left))
+    print("\n{} attempts left".format(chances_left))
     print_hangman_word(hangman_word, guessed_letters)
-    print("\n\nNumber of letters guessed -{}\n".format(len(guessed_letters)))
+    print("\n\nNumber of letters guessed:{}\n".format(len(guessed_letters)))
 
 
 guessed_word = ""
