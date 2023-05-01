@@ -1,6 +1,7 @@
 # imports
 import random
 import hangman_picture
+import sys
 from words import words
 
 
@@ -29,7 +30,7 @@ def select_word(words):
 # The chosen word shows up as dashes while they have not been guessed.
 def print_hangman_word(hangman_word, guessed_letters):
     for letter in hangman_word:
-        if letter.lower() in guessed_letters.lower():
+        if letter.upper() in guessed_letters.upper():
             print("{}".format(letter), end="")
         else:
             print(" _ ", end="")
@@ -38,10 +39,11 @@ def print_hangman_word(hangman_word, guessed_letters):
 
 # Check if guessed letter is in word & block double letters, numbers or signs
 def letter_input_correct(choice, hangman_word):
+    choice = input("Pick a letter - \n")
     if len(choice) > 1 or not choice.isalpha():
         print("You can only pick a single letter. Try again - \n")
     else:
-        if choice.lower() in hangman_word.lower():
+        if choice.upper() in hangman_word.upper():
             return True
         else:
             return False
@@ -59,13 +61,13 @@ chances_left = 6
 introduction()
 
 while chances_left > 0 and len(guessed_letters) < len(characters(hangman_word)):
-    choice = input("Pick a letter - \n")
-    if choice.lower() not in guessed_letters.lower():
+    if choice.upper() not in guessed_letters.upper():
         guessed_letters += choice
     input_in_hangman_word = letter_input_correct(choice, hangman_word)
     if input_in_hangman_word:
         if choice in guessed_letters:
             print("You already guessed this letter. Pick another")
+            print("Guessed letters so far: "(guessed_letters))
         else:
             print("You were right! That letter is part of the word.")
     else:
@@ -75,7 +77,7 @@ while chances_left > 0 and len(guessed_letters) < len(characters(hangman_word)):
     print(hangman_picture.get_hangman_picture(chances_left))
     print("\n{} attempts_left\n".format(chances_left))
     print_hangman_word(hangman_word, guessed_letters)
-    print("\n\nNumber of letters guessed correctly-{}\n".format(len(guessed_letters)))
+    print("\n\nNumber of letters guessed -{}\n".format(len(guessed_letters)))
 
 
 guessed_word = ""
@@ -83,8 +85,8 @@ for letter in hangman_word:
     if letter.lower() in guessed_letters.lower():
         guessed_word += letter
 
-
-if guessed_word.lower() == hangman_word.lower():
+# Result of the game
+if guessed_word.upper() == hangman_word.upper():
     print("Congratulations, you guessed the word right! You may live!\n")
 else:
     print("Sorry, you lost!\n")
